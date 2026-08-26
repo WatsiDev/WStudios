@@ -12,9 +12,21 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^7.2.8"
+    "@astrojs/sitemap": "^3.7.3",
+    "@fontsource/open-sans": "^5.3.0",
+    "@tailwindcss/vite": "^4.3.3",
+    "animejs": "^4.5.0",
+    "astro": "^7.2.8",
+    "astro-icon": "^1.2.0",
+    "astro-seo": "^1.1.0",
+    "tailwindcss": "^4.3.3"
   },
   "allowScripts": {
     "esbuild": true
+  },
+  "devDependencies": {
+    "prettier": "^3.9.6",
+    "prettier-plugin-astro": "^0.14.1",
+    "prettier-plugin-tailwindcss": "^0.8.1"
   }
 }
