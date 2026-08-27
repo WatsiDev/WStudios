@@ -11,9 +11,9 @@ importers:
       '@astrojs/sitemap':
         specifier: ^3.7.3
         version: 3.7.3
-      '@fontsource/open-sans':
-        specifier: ^5.3.0
-        version: 5.3.0
+      '@iconify-json/bytesize':
+        specifier: ^1.2.2
+        version: 1.2.2
       '@tailwindcss/vite':
         specifier: ^4.3.3
         version: 4.3.3(vite@8.2.2(@types/node@24.13.3)(esbuild@0.28.2)(jiti@2.7.0)(yaml@2.9.0))
@@ -424,8 +424,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@fontsource/open-sans@5.3.0':
-    resolution: {integrity: sha512-V1bdMlGNyZrJwzrdusshMOw2YR0aqYDL7kOo9dkxUEKl8dFv66A9HLckOOXl572sG/7ohhDQrCrTFGSn9LZcSw==}
+  '@iconify-json/bytesize@1.2.2':
+    resolution: {integrity: sha512-lI/wtPosh84caAS+UcudpeKiQk9ShfVoeaUTtzgOOBUhwQvjDuSiiHqe84v5NluHuIIFW64Fa3kuoGoluxWgpA==}
 
   '@iconify/tools@5.0.14':
     resolution: {integrity: sha512-wJ4ZE3/HZh2iBqLwG+8FOMHe7CMJAJqwSXZSpPwMdj1gZM3Z4t2hbQMVw4Vm45oQ985qn0g89PUIcDEdKTheBA==}
@@ -2405,7 +2405,9 @@ snapshots:
   '@esbuild/win32-x64@0.28.2':
     optional: true
 
-  '@fontsource/open-sans@5.3.0': {}
+  '@iconify-json/bytesize@1.2.2':
+    dependencies:
+      '@iconify/types': 2.0.0
 
   '@iconify/tools@5.0.14':
     dependencies:

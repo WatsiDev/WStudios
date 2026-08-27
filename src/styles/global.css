@@ -1,1 +1,13 @@
 @import "tailwindcss";
+
+@theme {
+    /* Color variables */
+    --color-primary: #363636;
+    --color-secondary: #242F40;
+    --color-accent: #CCA43B;
+    --color-onPrimary: #E5E5E5;
+    --color-onSecondary: #FFFFFF;
+
+    /* Font variables */
+    --font-sans: var(--font-orbitron);
+}

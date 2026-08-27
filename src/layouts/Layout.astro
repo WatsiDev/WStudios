@@ -1,29 +1,36 @@
 ---
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
+import { Font } from 'astro:assets';
+import { SEO } from 'astro-seo';
+
+interface Props {
+	title: string,
+	description?: string
+}
+
+const { title, description } = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
+		<SEO 
+			title={title}
+			description={description}
+		/>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
+		<!-- /sitemap-index.xml is created by @astrojs/sitemap -->
+		<link rel="sitemap" href="/sitemap-index.xml" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
+		<Font cssVariable='--font-orbitron' />
 		<ClientRouter />
 	</head>
-	<body>
+	<body class="bg-secondary text-onSecondary">
 		<slot />
 	</body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
