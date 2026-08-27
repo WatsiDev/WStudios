@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-@theme {
+@theme inline{
     /* Color variables */
     /* FONDOS (La profundidad del Hub) */
   --color-w-base: #060B14;    /* El azul más oscuro posible, casi negro. Para el fondo de la página. */
