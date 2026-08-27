@@ -12,8 +12,13 @@ export default defineConfig({
   //https://fontsource.org
   fonts: [{
     provider: fontProviders.fontsource(),
-    name: 'Orbitron',
-    cssVariable: '--font-orbitron'
+    name: 'Comfortaa',
+    cssVariable: '--font-comfortaa'
+  },
+  {
+    provider: fontProviders.fontsource(),
+    name: 'Geist Sans',
+    cssVariable: '--font-geist-sans'
   }],
   vite: {
     plugins: [tailwindcss()],

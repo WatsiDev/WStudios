@@ -2,12 +2,27 @@
 
 @theme {
     /* Color variables */
-    --color-primary: #363636;
-    --color-secondary: #242F40;
-    --color-accent: #CCA43B;
-    --color-onPrimary: #E5E5E5;
-    --color-onSecondary: #FFFFFF;
+    /* FONDOS (La profundidad del Hub) */
+  --color-w-base: #060B14;    /* El azul más oscuro posible, casi negro. Para el fondo de la página. */
+  --color-w-surface: #0E1626; /* Un azul ligeramente más claro. Para las Cards o el celular del Hero. */
+  
+  /* BORDES (El truco del "1px") */
+  --color-w-border: #1B273C;  /* Azul grisáceo. Úsalo para bordes finos. Separa elementos sin llamar la atención. */
+  
+  /* ACENTO (Tu Azulgrana) */
+  --color-w-accent: #C92A3E;  /* El rojo de W Studios. Es un carmesí mate. No es neón, pero resalta hermoso sobre el azul. */
+  --color-w-accent-hover: #A01E2E; /* El mismo rojo pero más oscuro, para cuando pasan el ratón. */
+  
+  /* TEXTOS (Para que Comfortaa y DM Sans brillen) */
+  --color-w-text: #E2E8F0;    /* Un blanco-plata. Nunca uses blanco puro (#FFF) en fondos tan oscuros. */
+  --color-w-muted: #8BA3C0;   /* Un gris-azulado para descripciones y texto secundario. */
 
     /* Font variables */
-    --font-sans: var(--font-orbitron);
+    --font-display: var(--font-comfortaa);
+    --font-sans: var(--font-geist-sans);
+}
+
+body {
+    background-color: var(--color-w-base);
+    color: var(--color-w-text);
 }
