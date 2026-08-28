@@ -24,6 +24,6 @@ export default defineConfig({
     plugins: [tailwindcss()],
   },
   //URL of the page, required for sitemap
-  site: 'https://example.com',
+  site: 'https://wstudiosmobile.netlify.app/',
   integrations: [icon(), sitemap()]
 });
