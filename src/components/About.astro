@@ -1,0 +1,198 @@
+---
+import { Icon } from "astro-icon/components";
+
+const pillars = [
+  {
+    icon: "ph:squares-four-fill",
+    category: "Nodo Central",
+    title: "El Hub Oficial de Aplicaciones",
+    description:
+      "Punto de encuentro unificado para acceder a cada proyecto publicado en Google Play, su documentación técnica, notas de actualización y políticas de privacidad.",
+    colSpan: "md:col-span-2 lg:col-span-2",
+    badge: "Direct Store Access",
+  },
+  {
+    icon: "ph:device-mobile-fill",
+    category: "Rendimiento",
+    title: "Ingeniería 100% Nativa",
+    description:
+      "Desarrollo exclusivo sobre el framework de Android con Kotlin y Jetpack Compose. Cero capas híbridas para máxima fluidez y respuesta instantánea a 120Hz.",
+    colSpan: "col-span-1",
+    badge: "100% Kotlin",
+  },
+  {
+    icon: "ph:shield-check-fill",
+    category: "Seguridad",
+    title: "Privacidad y Confianza",
+    description:
+      "Cumplimiento riguroso con los lineamientos de Google Play Protect. Permisos estrictamente necesarios y protección íntegra de los datos del usuario.",
+    colSpan: "col-span-1",
+    badge: "Play Protect",
+  },
+  {
+    icon: "ph:lightning-fill",
+    category: "Evolución",
+    title: "Adopción de APIs Modernas",
+    description:
+      "Integración continua de las últimas capacidades de Android: Material 3, Dynamic Colors, retroceso predictivo y arquitectura reactiva por capas.",
+    colSpan: "md:col-span-2 lg:col-span-2",
+    badge: "Target SDK 35+",
+  },
+];
+---
+
+<section id="overview" class="w-full px-6 sm:px-12 lg:px-24 py-16 sm:py-20 relative overflow-hidden">
+  <div class="about-container max-w-7xl mx-auto flex flex-col gap-10 sm:gap-12">
+    <!-- Header Content (Wide horizontal layout) -->
+    <div class="about-header flex flex-col gap-5 max-w-6xl w-full">
+      
+      <!-- Eyebrow: Minimalist technical line & label -->
+      <div class="flex items-center gap-3 text-xs font-mono tracking-widest uppercase text-w-accent">
+        <span class="w-8 h-px bg-w-accent"></span>
+        <span class="flex items-center gap-1.5 font-semibold">
+          <Icon name="simple-icons:googleplay" class="w-3.5 h-3.5" aria-hidden="true" />
+          Cuenta de Desarrollador
+        </span>
+        <span class="text-w-muted/40">•</span>
+        <span class="text-w-muted font-normal">Google Play Hub</span>
+      </div>
+
+      <!-- Main Title with text-w-muted highlight -->
+      <h2 class="font-display text-4xl sm:text-6xl lg:text-7xl font-bold text-w-text tracking-tight leading-[1.08] w-full">
+        El Hub central de nuestras <span class="text-w-muted font-semibold">aplicaciones en Google Play</span>
+      </h2>
+
+      <p class="text-w-muted text-base sm:text-lg lg:text-xl font-normal leading-relaxed max-w-3xl">
+        <strong class="text-w-text font-medium">W Studios</strong> centraliza el desarrollo independiente de nuestras aplicaciones nativas para Android: documentación técnica, notas de actualización y accesos directos a cada proyecto.
+      </p>
+    </div>
+
+    <!-- Bento Grid Cards (Replicating TechStack color palette and fill icon design) -->
+    <div class="about-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6">
+      {
+        pillars.map((item) => (
+          <div
+            class={`about-card group/card relative flex flex-col justify-between gap-6 rounded-2xl border border-w-border/50 bg-w-surface/30 p-6 sm:p-8 backdrop-blur-xs transition-all duration-300 hover:-translate-y-1 hover:border-w-accent/40 hover:bg-w-surface/70 hover:shadow-lg hover:shadow-w-accent/5 ${item.colSpan}`}
+          >
+            <div class="flex flex-col gap-5">
+              <!-- Top Row: Icon Box & Category / Badge -->
+              <div class="flex items-center justify-between">
+                <div class="about-icon-wrapper relative flex items-center justify-center w-12 h-12 rounded-xl border border-w-border/60 bg-w-surface/40 text-w-muted transition-all duration-300 group-hover/card:border-w-accent/40 group-hover/card:bg-w-surface/80 group-hover/card:text-w-text">
+                  <Icon
+                    name={item.icon}
+                    class="about-icon w-6 h-6 text-w-muted transition-colors duration-300 group-hover/card:text-w-text"
+                    aria-hidden="true"
+                  />
+                </div>
+                
+                <div class="flex items-center gap-2">
+                  <span class="text-[11px] font-mono tracking-wider uppercase text-w-muted/70 transition-colors duration-300 group-hover/card:text-w-muted">
+                    {item.category}
+                  </span>
+                  {item.badge && (
+                    <span class="text-[10px] font-mono px-2 py-0.5 rounded-md border border-w-border/50 bg-w-base/60 text-w-muted/80">
+                      {item.badge}
+                    </span>
+                  )}
+                </div>
+              </div>
+
+              <!-- Title & Description -->
+              <div class="flex flex-col gap-2">
+                <h3 class="font-display text-xl sm:text-2xl font-bold text-w-text transition-colors duration-300 group-hover/card:text-white">
+                  {item.title}
+                </h3>
+                <p class="text-sm sm:text-base text-w-muted font-normal leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+            </div>
+
+            <!-- Bottom Subtitle / Accent Line -->
+            <div class="flex items-center justify-between pt-4 border-t border-w-border/30 text-xs font-mono text-w-muted/60 transition-colors duration-300 group-hover/card:text-w-muted">
+              <span>W Studios · Android Ecosystem</span>
+              <span class="w-1.5 h-1.5 rounded-full bg-w-border/70 group-hover/card:bg-w-accent transition-colors duration-300"></span>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  import { animate, stagger } from 'animejs';
+
+  function initAboutAnimations() {
+    const section = document.getElementById("overview");
+    if (!section) return;
+
+    const header = section.querySelector(".about-header");
+    const cards = section.querySelectorAll(".about-card");
+
+    let hasAnimated = false;
+
+    // 1. Entrance on Scroll
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasAnimated) {
+            hasAnimated = true;
+
+            if (header) {
+              animate(header, {
+                opacity: [0, 1],
+                translateY: [35, 0],
+                duration: 800,
+                ease: 'outQuart',
+              });
+            }
+
+            if (cards.length > 0) {
+              animate(cards, {
+                opacity: [0, 1],
+                translateY: [30, 0],
+                scale: [0.96, 1],
+                duration: 700,
+                delay: stagger(80, { start: 200 }),
+                ease: 'outQuart',
+              });
+            }
+
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    observer.observe(section);
+
+    // 2. Interactive Icon Animations on Card Hover (Replicating TechStack)
+    cards.forEach((card) => {
+      const icon = card.querySelector(".about-icon");
+      if (!icon) return;
+
+      card.addEventListener("mouseenter", () => {
+        animate(icon, {
+          scale: 1.18,
+          rotate: [-4, 4, 0],
+          duration: 400,
+          ease: 'outBack(2)',
+        });
+      });
+
+      card.addEventListener("mouseleave", () => {
+        animate(icon, {
+          scale: 1,
+          rotate: 0,
+          duration: 300,
+          ease: 'outQuad',
+        });
+      });
+    });
+  }
+
+  initAboutAnimations();
+  document.addEventListener("astro:page-load", initAboutAnimations);
+</script>

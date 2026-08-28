@@ -1,0 +1,246 @@
+---
+---
+
+<section
+  id="hero-section"
+  class="relative w-full min-h-screen min-h-[100dvh] flex flex-col items-center justify-center overflow-hidden px-6 sm:px-12 lg:px-24 py-20 text-center select-none"
+>
+  <!-- SOLAR ECLIPSE BACKGROUND GRAPHIC -->
+  <div
+    id="eclipse-wrapper"
+    class="eclipse-container pointer-events-none absolute inset-0 flex items-center justify-center z-0 will-change-transform"
+    aria-hidden="true"
+  >
+    <div class="eclipse-inner-box relative w-[400px] h-[400px] sm:w-[560px] sm:h-[560px] md:w-[700px] md:h-[700px] lg:w-[820px] lg:h-[820px] xl:w-[900px] xl:h-[900px] flex items-center justify-center">
+      
+      <!-- Layer 1: Outermost Ambient Deep Red Bloom -->
+      <div
+        class="eclipse-outer-corona absolute -inset-8 sm:-inset-12 lg:-inset-16 rounded-full blur-3xl opacity-70"
+        style="background: radial-gradient(circle, rgba(201, 42, 62, 0.45) 0%, rgba(160, 30, 46, 0.2) 40%, rgba(201, 42, 62, 0.05) 58%, transparent 72%);"
+      >
+      </div>
+
+      <!-- Layer 2: Inner Vivid Halo -->
+      <div
+        class="eclipse-inner-corona absolute w-[84%] h-[84%] rounded-full blur-2xl opacity-80"
+        style="background: radial-gradient(circle, rgba(201, 42, 62, 0.65) 15%, rgba(201, 42, 62, 0.25) 50%, transparent 74%);"
+      >
+      </div>
+
+      <!-- Layer 3: Orbital Magnetic Field Ring 1 -->
+      <svg
+        class="eclipse-orbit-1 absolute w-[90%] h-[90%]"
+        viewBox="0 0 500 500"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id="orbitGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#C92A3E" stop-opacity="0.65" />
+            <stop offset="50%" stop-color="#8BA3C0" stop-opacity="0.25" />
+            <stop offset="100%" stop-color="#C92A3E" stop-opacity="0.65" />
+          </linearGradient>
+        </defs>
+        <ellipse
+          cx="250"
+          cy="250"
+          rx="220"
+          ry="110"
+          stroke="url(#orbitGrad1)"
+          stroke-width="1.5"
+          stroke-dasharray="6 14"
+          transform="rotate(-25 250 250)"
+        />
+      </svg>
+
+      <!-- Layer 4: Orbital Magnetic Field Ring 2 (Counter rotating) -->
+      <svg
+        class="eclipse-orbit-2 absolute w-[95%] h-[95%]"
+        viewBox="0 0 500 500"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id="orbitGrad2" x1="100%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#8BA3C0" stop-opacity="0.5" />
+            <stop offset="60%" stop-color="#C92A3E" stop-opacity="0.2" />
+            <stop offset="100%" stop-color="transparent" />
+          </linearGradient>
+        </defs>
+        <ellipse
+          cx="250"
+          cy="250"
+          rx="235"
+          ry="130"
+          stroke="url(#orbitGrad2)"
+          stroke-width="1"
+          stroke-dasharray="14 10"
+          transform="rotate(35 250 250)"
+        />
+      </svg>
+
+      <!-- Layer 5: The Central Eclipse Disc (Dark celestial body & Rim glow) -->
+      <div
+        class="eclipse-disc relative w-64 h-64 sm:w-80 sm:h-80 md:w-[420px] md:h-[420px] lg:w-[500px] lg:h-[500px] xl:w-[550px] xl:h-[550px] rounded-full flex items-center justify-center border border-w-accent/40 shadow-[0_0_55px_15px_rgba(201,42,62,0.4),inset_0_0_35px_rgba(201,42,62,0.22)]"
+        style="background: radial-gradient(circle at 35% 35%, #0E1626 0%, #060B14 70%, #02050A 100%);"
+      >
+        <!-- Subtle inner ring texture -->
+        <div class="w-[85%] h-[85%] rounded-full border border-w-border/30 opacity-40"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOREGROUND HERO CONTENT (Clean, bold, high impact) -->
+  <div
+    id="hero-content"
+    class="hero-content relative z-10 max-w-4xl mx-auto flex flex-col items-center gap-6"
+  >
+    <!-- Main Title -->
+    <h1
+      class="hero-title font-display text-5xl sm:text-7xl lg:text-8xl font-bold tracking-tight text-w-text leading-[1.08]"
+    >
+      Desarrollo <br />
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-w-text via-[#F1F5F9] to-w-accent">
+        móvil nativo
+      </span>
+    </h1>
+
+    <!-- Subtitle / Vision Statement -->
+    <p
+      class="hero-subtitle text-base sm:text-lg lg:text-xl text-w-muted max-w-xl font-normal leading-relaxed"
+    >
+      Creamos experiencias fluidas y arquitecturas robustas construidas exclusivamente con Kotlin y Jetpack Compose.
+    </p>
+  </div>
+</section>
+
+<script>
+  import { animate } from 'animejs';
+
+  function initHeroAnimations() {
+    const heroSection = document.getElementById("hero-section");
+    const eclipseWrapper = document.getElementById("eclipse-wrapper");
+    const heroContent = document.getElementById("hero-content");
+
+    if (!heroSection || !eclipseWrapper || !heroContent) return;
+
+    // 1. CALCULATE ENTRANCE VALUES (from bottom spanning full screen width to center)
+    const heroHeight = heroSection.offsetHeight || window.innerHeight * 0.8;
+    const screenWidth = window.innerWidth || 1200;
+    const innerBox = eclipseWrapper.querySelector('.eclipse-inner-box') as HTMLElement | null;
+    const baseWidth = innerBox ? innerBox.offsetWidth : 440;
+    
+    // Scale so the eclipse spans the width of the screen at the bottom
+    const startScale = Math.max((screenWidth * 1.1) / (baseWidth || 440), 2.2);
+    // Position at bottom of the hero where top half is visible
+    const startTranslateY = heroHeight * 0.46;
+
+    // 2. ENTRANCE ANIMATION ON LOAD (Rising celestial eclipse from horizon to center)
+    animate(eclipseWrapper, {
+      scale: [startScale, 1],
+      translateY: [startTranslateY, 0],
+      opacity: [0.4, 1],
+      duration: 1900,
+      ease: 'outQuart',
+    });
+
+    animate('.hero-title', {
+      opacity: [0, 1],
+      translateY: [40, 0],
+      duration: 1100,
+      delay: 450,
+      ease: 'outQuart',
+    });
+
+    animate('.hero-subtitle', {
+      opacity: [0, 1],
+      translateY: [30, 0],
+      duration: 1000,
+      delay: 650,
+      ease: 'outQuart',
+    });
+
+    // 3. INFINITE LOOPS WITH ANIME.JS
+    // Outer corona pulsating glow
+    animate('.eclipse-outer-corona', {
+      scale: [1, 1.12],
+      opacity: [0.55, 0.8],
+      duration: 4200,
+      loop: true,
+      alternate: true,
+      ease: 'inOutSine',
+    });
+
+    // Inner corona breathing
+    animate('.eclipse-inner-corona', {
+      scale: [0.95, 1.06],
+      opacity: [0.65, 0.9],
+      duration: 3200,
+      loop: true,
+      alternate: true,
+      ease: 'inOutSine',
+    });
+
+    // Orbital Ring 1 rotation
+    animate('.eclipse-orbit-1', {
+      rotate: [0, 360],
+      duration: 28000,
+      loop: true,
+      ease: 'linear',
+    });
+
+    // Orbital Ring 2 counter-rotation
+    animate('.eclipse-orbit-2', {
+      rotate: [360, 0],
+      duration: 44000,
+      loop: true,
+      ease: 'linear',
+    });
+
+    // Subtle celestial floating oscillation for the eclipse sphere
+    animate('.eclipse-disc', {
+      translateY: [-5, 5],
+      duration: 5500,
+      loop: true,
+      alternate: true,
+      ease: 'inOutSine',
+    });
+
+    // 4. SCROLL PARALLAX AND REACTIVE TRANSFORMATION
+    let scrollRafId: number | null = null;
+
+    const handleScroll = () => {
+      if (scrollRafId) cancelAnimationFrame(scrollRafId);
+
+      scrollRafId = requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        const currentHeroHeight = heroSection.offsetHeight || 600;
+
+        if (scrollY > currentHeroHeight + 200) return;
+
+        const progress = Math.min(scrollY / currentHeroHeight, 1);
+
+        // Eclipse expands, moves downward with parallax, and gently fades
+        const eclipseY = scrollY * 0.35;
+        const eclipseScale = 1 + progress * 0.12;
+        const eclipseOpacity = Math.max(1 - progress * 0.85, 0);
+
+        eclipseWrapper.style.transform = `translate3d(0, ${eclipseY}px, 0) scale(${eclipseScale})`;
+        eclipseWrapper.style.opacity = `${eclipseOpacity}`;
+
+        // Hero text shifts upward and fades out faster
+        const textY = -scrollY * 0.22;
+        const textOpacity = Math.max(1 - progress * 1.3, 0);
+
+        heroContent.style.transform = `translate3d(0, ${textY}px, 0)`;
+        heroContent.style.opacity = `${textOpacity}`;
+      });
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+  }
+
+  initHeroAnimations();
+  document.addEventListener("astro:page-load", initHeroAnimations);
+</script>

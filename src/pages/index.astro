@@ -1,12 +1,16 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { Icon } from "astro-icon/components";
+import Hero from "../components/Hero.astro";
+import About from "../components/About.astro";
+import AppsShowcase from "../components/AppsShowcase.astro";
+import TechStack from "../components/TechStack.astro";
 ---
 
 <Layout title="W Studios | Home" description="W Studios desarrolla aplicaciones móviles nativas utilizando como tecnologías modernas Kotlin y Jetpack Compose.">
     <main>
-        <div class="flex justify-center items-center py-4">
-            <h1 class="text-6xl font-display font-extrabold">W<span class="text-w-accent">Studios</span></h1>
-        </div>
+        <Hero />
+        <About />
+        <TechStack />
+        <AppsShowcase />
     </main>
 </Layout>

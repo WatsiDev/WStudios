@@ -1,0 +1,46 @@
+---
+---
+
+<header
+  id="main-header"
+  class="fixed top-0 left-0 w-full z-50 flex justify-center items-center py-6 bg-transparent pointer-events-none transition-transform duration-500 ease-out"
+>
+  <a href="/" class="group pointer-events-auto transition-transform duration-300 hover:scale-105">
+    <h1 class="text-4xl sm:text-5xl font-display font-extrabold tracking-tight text-w-text">
+      W<span class="text-w-accent transition-colors duration-300 group-hover:text-w-accent-hover">Studios</span>
+    </h1>
+  </a>
+</header>
+
+<script>
+  function setupHeaderScroll() {
+    const header = document.getElementById("main-header");
+    if (!header) return;
+
+    let rafId: number | null = null;
+
+    const onScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+
+      rafId = requestAnimationFrame(() => {
+        const heroSection = document.getElementById("hero-section");
+        const scrollY = window.scrollY;
+
+        if (heroSection) {
+          const heroBottom = heroSection.offsetTop + heroSection.offsetHeight - 60;
+          if (scrollY > heroBottom) {
+            header.classList.add("-translate-y-full");
+          } else {
+            header.classList.remove("-translate-y-full");
+          }
+        }
+      });
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+  }
+
+  setupHeaderScroll();
+  document.addEventListener("astro:page-load", setupHeaderScroll);
+</script>
