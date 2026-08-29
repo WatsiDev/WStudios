@@ -120,8 +120,33 @@ const pillars = [
   </div>
 </section>
 
+<style>
+  /* Silky smooth progressive reveal without layout snapping */
+  .about-header {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+  .about-header.is-revealed {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .about-card {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+    transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+  .about-card.is-revealed {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+</style>
+
 <script>
-  import { animate, stagger } from 'animejs';
+  import { animate } from 'animejs';
 
   function initAboutAnimations() {
     const section = document.getElementById("overview");
@@ -132,7 +157,7 @@ const pillars = [
 
     let hasAnimated = false;
 
-    // 1. Entrance on Scroll
+    // 1. Smooth Progressive Entrance on Scroll
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -140,30 +165,20 @@ const pillars = [
             hasAnimated = true;
 
             if (header) {
-              animate(header, {
-                opacity: [0, 1],
-                translateY: [35, 0],
-                duration: 800,
-                ease: 'outQuart',
-              });
+              header.classList.add("is-revealed");
             }
 
-            if (cards.length > 0) {
-              animate(cards, {
-                opacity: [0, 1],
-                translateY: [30, 0],
-                scale: [0.96, 1],
-                duration: 700,
-                delay: stagger(80, { start: 200 }),
-                ease: 'outQuart',
-              });
-            }
+            cards.forEach((card, idx) => {
+              setTimeout(() => {
+                card.classList.add("is-revealed");
+              }, idx * 80 + 100);
+            });
 
             observer.disconnect();
           }
         });
       },
-      { threshold: 0.15 }
+      { threshold: 0.05, rootMargin: "0px 0px -40px 0px" }
     );
 
     observer.observe(section);

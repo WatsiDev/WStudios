@@ -22,7 +22,15 @@
     --font-sans: var(--font-geist-sans);
 }
 
+html {
+    color-scheme: dark;
+}
+
 body {
     background-color: var(--color-w-base);
     color: var(--color-w-text);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
 }

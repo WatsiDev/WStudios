@@ -32,7 +32,7 @@ const apps: AppItem[] = [
 ---
 
 <!-- Outer tall wrapper providing scroll distance for the horizontal pinning -->
-<section id="apps-section" class="relative w-full" style="height: 320vh;">
+<section id="apps-section" class="relative w-full" style="height: 300vh;">
   <!-- Ambient background glow behind the pinned section -->
   <div
     class="pointer-events-none absolute top-1/3 right-10 w-[550px] h-[550px] rounded-full blur-3xl opacity-15 bg-w-accent"
@@ -84,7 +84,7 @@ const apps: AppItem[] = [
       <div
         id="apps-track"
         class="flex items-center gap-6 sm:gap-8 lg:gap-10 px-6 sm:px-12 lg:px-24 will-change-transform"
-        style="width: max-content;"
+        style="width: max-content; transform: translate3d(0, 0, 0);"
       >
         {
           apps.map((app, index) => (
@@ -216,29 +216,42 @@ const apps: AppItem[] = [
 
     if (!section || !track) return;
 
+    let sectionTop = 0;
+    let maxScrollDistance = 0;
+    let maxTranslateX = 0;
+    let totalCards = 1;
+
+    // Cache metrics to avoid Layout Thrashing / Reflows during scroll
+    const updateMetrics = () => {
+      const sectionHeight = section.offsetHeight;
+      const windowHeight = window.innerHeight;
+      sectionTop = section.offsetTop;
+      maxScrollDistance = Math.max(1, sectionHeight - windowHeight);
+      const trackWidth = track.scrollWidth;
+      const viewportWidth = window.innerWidth;
+      maxTranslateX = Math.max(0, trackWidth - viewportWidth + 64);
+      totalCards = Math.max(1, document.querySelectorAll('.app-card').length - 1);
+    };
+
+    updateMetrics();
+    window.addEventListener("resize", updateMetrics, { passive: true });
+
     let rafId: number | null = null;
 
     const onScroll = () => {
       if (rafId) cancelAnimationFrame(rafId);
 
       rafId = requestAnimationFrame(() => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const windowHeight = window.innerHeight;
         const scrollY = window.scrollY;
 
-        // Total vertical scroll distance allocated to the horizontal pinning
-        const maxScrollDistance = sectionHeight - windowHeight;
-        if (maxScrollDistance <= 0) return;
+        // Skip calculations if completely outside the section
+        if (scrollY < sectionTop - 200 || scrollY > sectionTop + maxScrollDistance + 200) {
+          return;
+        }
 
         // Progress clamp (0 to 1)
         const currentScroll = Math.max(0, Math.min(scrollY - sectionTop, maxScrollDistance));
         const progress = currentScroll / maxScrollDistance;
-
-        // Compute total horizontal translation needed to reveal all cards
-        const trackWidth = track.scrollWidth;
-        const viewportWidth = window.innerWidth;
-        const maxTranslateX = Math.max(0, trackWidth - viewportWidth + 64);
         const translateX = progress * maxTranslateX;
 
         track.style.transform = `translate3d(-${translateX}px, 0, 0)`;
@@ -251,15 +264,13 @@ const apps: AppItem[] = [
 
         // Update current card indicator
         if (currentIndex) {
-          const totalApps = Math.max(1, document.querySelectorAll('.app-card').length - 1);
-          const currentCardNumber = Math.min(totalApps, Math.floor(progress * totalApps) + 1);
+          const currentCardNumber = Math.min(totalCards, Math.floor(progress * totalCards) + 1);
           currentIndex.textContent = `0${currentCardNumber}`;
         }
       });
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
-    window.addEventListener("resize", onScroll, { passive: true });
     onScroll();
   }
 

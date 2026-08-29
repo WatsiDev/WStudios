@@ -3,7 +3,7 @@
 
 <header
   id="main-header"
-  class="fixed top-0 left-0 w-full z-50 flex justify-center items-center py-6 bg-transparent pointer-events-none transition-transform duration-500 ease-out"
+  class="fixed top-0 left-0 w-full z-50 flex justify-center items-center py-6 bg-transparent pointer-events-none transition-transform duration-500 ease-out will-change-transform"
 >
   <a href="/" class="group pointer-events-auto transition-transform duration-300 hover:scale-105">
     <h1 class="text-4xl sm:text-5xl font-display font-extrabold tracking-tight text-w-text">
@@ -17,22 +17,33 @@
     const header = document.getElementById("main-header");
     if (!header) return;
 
+    let heroBottom = 600;
+
+    const updateMetrics = () => {
+      const heroSection = document.getElementById("hero-section");
+      if (heroSection) {
+        heroBottom = heroSection.offsetTop + heroSection.offsetHeight - 60;
+      }
+    };
+
+    updateMetrics();
+    window.addEventListener("resize", updateMetrics, { passive: true });
+
     let rafId: number | null = null;
+    let isHidden = false;
 
     const onScroll = () => {
       if (rafId) cancelAnimationFrame(rafId);
 
       rafId = requestAnimationFrame(() => {
-        const heroSection = document.getElementById("hero-section");
         const scrollY = window.scrollY;
 
-        if (heroSection) {
-          const heroBottom = heroSection.offsetTop + heroSection.offsetHeight - 60;
-          if (scrollY > heroBottom) {
-            header.classList.add("-translate-y-full");
-          } else {
-            header.classList.remove("-translate-y-full");
-          }
+        if (scrollY > heroBottom && !isHidden) {
+          header.classList.add("-translate-y-full");
+          isHidden = true;
+        } else if (scrollY <= heroBottom && isHidden) {
+          header.classList.remove("-translate-y-full");
+          isHidden = false;
         }
       });
     };
